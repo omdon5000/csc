@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jharkhand CSC Portal Dashboard</title>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #2563eb;
+            --bg: #f3f4f6;
+            --card-bg: #ffffff;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --accent: #f59e0b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-area h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .logo-area p {
+            font-size: 0.9rem;
+            color: #bfdbfe;
+        }
+
+        .search-container input {
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            border: none;
+            width: 300px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        /* Main Content */
+        main {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            margin: 2rem 0 1rem 0;
+            font-size: 1.25rem;
+            color: var(--text);
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+
+        /* Grid Layout */
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Portal Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            border-top: 4px solid var(--secondary);
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .fav-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #d1d5db;
+            transition: color 0.2s;
+        }
+
+        .fav-btn.active {
+            color: var(--accent);
+        }
+
+        .card-desc {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .card-link {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .card-link:hover {
+            background-color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .search-container input {
+                width: 100%;
+            }
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-area">
+            <h1>Jharkhand CSC Dashboard</h1>
+            <p>Daily Access Link Collection</p>
+        </div>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search portals, services, e.g. 'Ration'..." onkeyup="filterPortals()">
+        </div>
+    </header>
+
+    <main>
+        <h2 class="section-title">State Government Services</h2>
+        <div class="portal-grid" id="state-grid">
+            
+            <div class="card" data-tags="jharsewa certificate income caste resident">
+                <div class="card-header">
+                    <div class="card-title">Jharsewa</div>
+                    <button class="fav-btn" onclick="toggleFav(this)">★</button>
+                </div>
+                <div class="card-desc">Apply for Caste, Income, Local Resident certificates & pensions.</div>
+                <a href="https://jharsewa.jharkhand.gov.in/" target="_blank" class="card-link">Open Portal</a>
+            </div>
+
+            <div class="card" data-tags="jharbhoomi land record mutation lagan">
+                <div class="card-header">
+                    <div class="card-title">Jharbhoomi</div>
+                    <button class="fav-btn" onclick="toggleFav(this)">★</button>
+                </div>
+                <div class="card-desc">Check land records (Khatian), online mutation, and pay Bhu-Lagan.</div>
+                <a href="https://jharbhoomi.jharkhand.gov.in/" target="_blank" class="card-link">Open Portal</a>
+            </div>
+
+            <div class="card" data-tags="aahar ration card pds food">
+                <div class="card-header">
+                    <div class="card-title">Aahar Jharkhand</div>
+                    <button class="fav-btn" onclick="toggleFav(this)">★</button>
+                </div>
+                <div class="card-desc">Ration card management, PDS entitlement, and grievance redressal.</div>
+                <a href="https://aahar.jharkhand.gov.in/" target="_blank" class="card-link">Open Portal</a>
+            </div>
+
+            <div class="card" data-tags="ekalyan scholarship student pre post matric">
+                <div class="card-header">
+                    <div class="card-title">e-Kalyan</div>
+                    <button class="fav-btn" onclick="toggleFav(this)">★</button>
+                </div>
+                <div class="card-desc">Official portal for SC/ST/BC Post-Matric and Pre-Matric scholarships.</div>
+                <a href="https://ekalyan.cgg.gov.in/" target="_blank" class="card-link">Open Portal</a>
+            </div>
+            
+            <div class="card" data-tags="parivahan vehicle transport license rc">
+                <div class="card-header">
+                    <div class="card-title">Parivahan Sewa</div>
+                    <button class="fav-btn" onclick="toggleFav(this)">★</button>
+                </div>
+                <div class="card-desc">Driving license, vehicle registration, and road tax payments.</div>
+                <a href="https://parivahan.gov.in/" target="_blank" class="card-link">Open Portal</a>
+            </div>
+        </div>
+
+        <h2 class="section-title">Central Identity & Utilities</h2>
+        <div class="portal-grid" id="central-grid">
+            
+            <div class="card" data-tags="uidai aadhaar update download">
+                <div class="card-header">
+                    <div class="card-title">UIDAI (Aadhaar)</div>
+                    <button class="fav-btn" onclick="toggleFav(this)">★</button>
+                </div>
+                <div class="card-desc">Download Aadhaar, book appointments, and update demographic details.</div>
+                <a href="https://uidai.gov.in/" target="_blank" class="card-link">Open Portal</a>
+            </div>
+
+            <div class="card" data-tags="pan card nsdl utiitsl tax">
+                <div class="card-header">
+                    <div class="card-title">PAN Services</div>
+                    <button class="fav-btn" onclick="toggleFav(this)">★</button>
+                </div>
+                <div class="card-desc">Apply for a new PAN card or request corrections (NSDL Portal).</div>
+                <a href="https://www.onlineservices.nsdl.com/" target="_blank" class="card-link">Open Portal</a>
+            </div>
+
+            <div class="card" data-tags="digilocker documents marksheet digital">
+                <div class="card-header">
+                    <div class="card-title">DigiLocker</div>
+                    <button class="fav-btn" onclick="toggleFav(this)">★</button>
+                </div>
+                <div class="card-desc">Access and share verified digital documents and certificates safely.</div>
+                <a href="https://www.digilocker.gov.in/" target="_blank" class="card-link">Open Portal</a>
+            </div>
+
+            <div class="card" data-tags="election voter id epic eci nvsp">
+                <div class="card-header">
+                    <div class="card-title">Election Services</div>
+                    <button class="fav-btn" onclick="toggleFav(this)">★</button>
+                </div>
+                <div class="card-desc">Voter portal for new registration, corrections, and EPIC download.</div>
+                <a href="https://voters.eci.gov.in/" target="_blank" class="card-link">Open Portal</a>
+            </div>
+        </div>
+
+        <h2 class="section-title">Welfare Schemes & CSC</h2>
+        <div class="portal-grid" id="welfare-grid">
+            
+            <div class="card" data-tags="csc digital seva vle">
+                <div class="card-header">
+                    <div class="card-title">Digital Seva (CSC)</div>
+                    <button class="fav-btn" onclick="toggleFav(this)">★</button>
+                </div>
+                <div class="card-desc">Main portal for VLEs to deliver B2C and G2C services to citizens.</div>
+                <a href="https://digitalseva.csc.gov.in/" target="_blank" class="card-link">Open Portal</a>
+            </div>
+
+            <div class="card" data-tags="pm kisan samman nidhi agriculture farmer">
+                <div class="card-header">
+                    <div class="card-title">PM Kisan</div>
+                    <button class="fav-btn" onclick="toggleFav(this)">★</button>
+                </div>
+                <div class="card-desc">e-KYC, new farmer registration, and beneficiary status checks.</div>
+                <a href="https://pmkisan.gov.in/" target="_blank" class="card-link">Open Portal</a>
+            </div>
+
+            <div class="card" data-tags="ayushman bharat health card pmjay medical">
+                <div class="card-header">
+                    <div class="card-title">Ayushman Bharat</div>
+                    <button class="fav-btn" onclick="toggleFav(this)">★</button>
+                </div>
+                <div class="card-desc">Beneficiary identification system for creating PMJAY health cards.</div>
+                <a href="https://beneficiary.nha.gov.in/" target="_blank" class="card-link">Open Portal</a>
+            </div>
+            
+            <div class="card" data-tags="banking bc csp financial">
+                <div class="card-header">
+                    <div class="card-title">Banking Services</div>
+                    <button class="fav-btn" onclick="toggleFav(this)">★</button>
+                </div>
+                <div class="card-desc">Access your designated Business Correspondent (BC) portal.</div>
+                <a href="#" class="card-link">Open Portal</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Simple search filter function
+        function filterPortals() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('card');
+
+            for (let i = 0; i < cards.length; i++) {
+                let tags = cards[i].getAttribute('data-tags').toLowerCase();
+                let title = cards[i].querySelector('.card-title').innerText.toLowerCase();
+                
+                if (tags.includes(input) || title.includes(input)) {
+                    cards[i].style.display = "flex";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+
+        // Toggle Favorite visual state
+        function toggleFav(btn) {
+            btn.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
